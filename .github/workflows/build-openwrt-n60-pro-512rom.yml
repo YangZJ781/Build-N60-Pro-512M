@@ -1,4 +1,4 @@
-name: build-openwrt-25.12.1-n60-pro-512rom
+name: build-openwrt-n60-pro-512rom
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
       - main
       - master
     paths:
-      - ".github/workflows/build-openwrt-25.12.1-n60-pro-512rom.yml"
+      - ".github/workflows/build-openwrt-n60-pro-512rom.yml"
       - "configs/**"
       - "patches/**"
       - "README.md"
@@ -18,7 +18,7 @@ concurrency:
 
 env:
   OPENWRT_REPO: https://github.com/openwrt/openwrt.git
-  OPENWRT_REF: v25.12.1
+  OPENWRT_REF: v25.12.2
   CONFIG_FILE: configs/netcore_n60-pro-512rom.config
   PATCH_FILE: patches/0001-mediatek-filogic-add-netcore-n60-pro-512rom.patch
   TZ: Asia/Shanghai
