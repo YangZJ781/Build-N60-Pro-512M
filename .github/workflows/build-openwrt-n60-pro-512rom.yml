@@ -17,8 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  OPENWRT_REPO: https://github.com/openwrt/openwrt.git
-  OPENWRT_REF: v25.12.2
+  OPENWRT_REPO: https://git.openwrt.org/openwrt/openwrt.git
+  OPENWRT_REF: v25.12.3
   CONFIG_FILE: configs/netcore_n60-pro-512rom.config
   PATCH_FILE: patches/0001-mediatek-filogic-add-netcore-n60-pro-512rom.patch
   TZ: UTC
