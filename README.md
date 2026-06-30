@@ -1,16 +1,25 @@
 # Build N60 Pro 512M
 
-这个仓库用于通过 GitHub Actions 云编译磊科 `Netcore N60 Pro` 硬改 `512MB SPI-NAND` 的 OpenWrt 主线 `v25.12.1` 固件。
+This repository builds an OpenWrt image for the Netcore N60 Pro `512MB SPI-NAND` variant through GitHub Actions.
 
-实现方式：
+## Overview
 
-- 源码使用官方 `openwrt/openwrt` 的 `v25.12.1`
-- 在官方已支持的 `Netcore N60 Pro` 基础上补一个 `512ROM` 机型变体
-- `512M` 变体思路参考了 `moshanghuakai01/netcore-n60-pro` 仓库中基于 `dailook` 源码的做法，但补丁已经按 OpenWrt 主线 `filogic` 目录结构重写
+- The build is based on the official `openwrt/openwrt` repository at `v25.12.5`
+- A separate `512ROM` device variant is added on top of the officially supported `Netcore N60 Pro`
+- The `512M` idea was inspired by the `moshanghuakai01/netcore-n60-pro` repository and its `dailook`-based approach, but this repository reimplements it for the OpenWrt mainline `filogic` tree
+- The current implementation uses a minimal patch set and avoids unrelated package changes
 
-工作流触发方式：
+## Build Flow
 
-- 推送到 `main` 或 `master`
-- 在 Actions 页面手动运行 `build-openwrt-25.12.1-n60-pro-512rom`
+- GitHub Actions workflow: [.github/workflows/build-openwrt-n60-pro-512rom.yml](.github/workflows/build-openwrt-n60-pro-512rom.yml)
+- Automatic trigger: pushes to `main` or `master`
+- Manual trigger: run `build-openwrt-n60-pro-512rom` from the Actions page
 
-编译产物会以 GitHub Actions Artifact 形式上传。
+## Key Files
+
+- [configs/netcore_n60-pro-512rom.config](configs/netcore_n60-pro-512rom.config) - build config for the 512ROM variant
+- [patches/0001-mediatek-filogic-add-netcore-n60-pro-512rom.patch](patches/0001-mediatek-filogic-add-netcore-n60-pro-512rom.patch) - device support patch for mainline OpenWrt
+
+## Output
+
+Build artifacts are uploaded as GitHub Actions artifacts.
