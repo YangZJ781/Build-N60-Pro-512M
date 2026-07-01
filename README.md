@@ -7,6 +7,7 @@ A custom build via GitHub Actions of OpenWrt for the Netcore N60 Pro `512MB SPI-
 - Argon theme
 - Passwall
 - Tailscale
+- wpad-mbedtls (wpad-basic-mbedtls removed) (for 802.11s MESH)
 
 ## Overview
 
