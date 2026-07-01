@@ -93,7 +93,10 @@ jobs:
           make tools/sed/compile -j"$(nproc)" || make tools/sed/compile -j1 V=s
           make tools/meson/compile -j1 || make tools/meson/compile -j1 V=s
           openssl_bin="$(command -v openssl)"
-          test -n "$openssl_bin"
+          if [ -z "$openssl_bin" ]; then
+            echo "Error: openssl binary not found on runner PATH" >&2
+            exit 1
+          fi
           mkdir -p "$PWD/staging_dir/host/bin"
           ln -sf "$openssl_bin" "$PWD/staging_dir/host/bin/openssl"
           make package/libs/mbedtls/compile -j1 || make package/libs/mbedtls/compile -j1 V=s
