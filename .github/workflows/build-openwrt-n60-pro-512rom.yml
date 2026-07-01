@@ -67,7 +67,22 @@ jobs:
           git apply "$GITHUB_WORKSPACE/$PATCH_FILE"
 
       - name: Update feeds
-        run: cd openwrt && ./scripts/feeds update -a
+        run: |
+          cd openwrt
+          max_retries=3
+          retry_delay_seconds=10
+          for attempt in $(seq 1 "$max_retries"); do
+            if ./scripts/feeds update -a; then
+              break
+            fi
+            if [ "$attempt" -eq "$max_retries" ]; then
+              echo "Error: feeds update failed after ${attempt} attempts" >&2
+              exit 1
+            fi
+            echo "feeds update failed on attempt ${attempt}, retrying..." >&2
+            rm -rf feeds/*
+            sleep $((attempt * retry_delay_seconds))
+          done
 
       - name: Install feeds
         run: cd openwrt && ./scripts/feeds install -a
