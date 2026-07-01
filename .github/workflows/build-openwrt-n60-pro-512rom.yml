@@ -89,10 +89,17 @@ jobs:
       - name: Build firmware
         run: |
           cd openwrt
+          openwrt_dir="$(pwd -P)"
           echo "$(nproc) threads build"
           make tools/sed/compile -j"$(nproc)" || make tools/sed/compile -j1 V=s
           make tools/meson/compile -j1 || make tools/meson/compile -j1 V=s
-          make package/libs/openssl/host/compile -j1 || make package/libs/openssl/host/compile -j1 V=s
+          openssl_bin="$(command -v openssl)"
+          if [ -z "$openssl_bin" ]; then
+            echo "Error: openssl binary not found on runner PATH" >&2
+            exit 1
+          fi
+          mkdir -p "$openwrt_dir/staging_dir/host/bin"
+          ln -sf "$openssl_bin" "$openwrt_dir/staging_dir/host/bin/openssl"
           make package/libs/mbedtls/compile -j1 || make package/libs/mbedtls/compile -j1 V=s
           make -j"$(nproc)" || make -j1 V=s
           echo "FILE_DATE=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
