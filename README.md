@@ -1,6 +1,12 @@
 # Build N60 Pro 512M
 
-This repository builds an OpenWrt image for the Netcore N60 Pro `512MB SPI-NAND` variant through GitHub Actions.
+A custom build via GitHub Actions of OpenWrt for the Netcore N60 Pro `512MB SPI-NAND` variant with some common software built in.
+
+## Built-in Software
+
+- Argon theme
+- Passwall
+- Tailscale
 
 ## Overview
 
