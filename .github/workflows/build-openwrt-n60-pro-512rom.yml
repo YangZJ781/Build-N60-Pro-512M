@@ -90,7 +90,8 @@ jobs:
         run: |
           cd openwrt
           echo "$(nproc) threads build"
-          make package/libs/mbedtls/compile -j"$(nproc)" || make package/libs/mbedtls/compile -j1 V=s
+          make tools/sed/compile -j"$(nproc)" || make tools/sed/compile -j1 V=s
+          make package/libs/mbedtls/compile -j1 || make package/libs/mbedtls/compile -j1 V=s
           make -j"$(nproc)" || make -j1 V=s
           echo "FILE_DATE=$(date +%Y%m%d%H%M)" >> "$GITHUB_ENV"
 
